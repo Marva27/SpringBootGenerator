@@ -1,0 +1,304 @@
+openapi: 3.0.2
+info:
+  title: Dealer Management System
+  description: REST APIs to manage dealers
+  version: 1.0.0
+  contact:
+    name: Srinivasan Ramu
+    email: srinimarva@gmail.com
+tags:
+  - name: User
+    description: REST APIs to manage admin users
+  - name: Dealer
+    description: REST APIs to manage dealers
+paths:
+  /user/signup:
+    post:
+      operationId: Admin User Signup
+      summary: Admin User Signup
+      description: To signup a new admin user
+      tags:
+        - User
+      requestBody:
+        required: true
+        description: User Details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Admin user is signed up successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: Error in signing up an admin user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: No endpoint available for signing up an admin user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /user/signin:
+    post:
+      operationId: Admin User Signin
+      summary: Admin User Signin
+      description: To signin an admin user
+      tags:
+        - User
+      requestBody:
+        required: true
+        description: Username and Password
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/signinRequest'
+      responses:
+        '200':
+          description: Admin user signed in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token'
+        '400':
+          description: Error in admin user signin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: No endpoint available for admin user signin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /dealer/add:
+    post:
+      operationId: Add New Dealer
+      summary: Add New Dealer
+      description: To add a new dealer
+      tags:
+        - Dealer
+      requestBody:
+        required: true
+        description: Dealer Details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dealer'
+      responses:
+        '200':
+          description: Dealer added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dealer'
+        '400':
+          description: Error in adding dealer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '401':
+          description: Authorization required for adding a dealer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Endpoint not available for adding dealer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /dealer/{dealerId}:
+    get:
+      operationId: Get Existing Dealer
+      summary: Get Existing Dealer
+      description: To get an existing dealer by dealer id
+      tags:
+        - Dealer
+      parameters:
+        - in: path
+          name: dealerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dealer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dealer'
+        '404':
+          description: Dealer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      operationId: Update Existing Dealer
+      summary: Update Existing Dealer
+      description: To update an existing dealer
+      tags:
+        - Dealer
+      parameters:
+        - in: path
+          name: dealerId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Dealer Details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dealer'
+      responses:
+        '200':
+          description: Dealer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dealer'
+        '400':
+          description: Error in updating dealer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '404':
+          description: Dealer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      operationId: Delete Existing Dealer
+      summary: Delete Existing Dealer
+      description: To delete an existing dealer by dealer id
+      tags:
+        - Dealer
+      parameters:
+        - in: path
+          name: dealerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dealer deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/success'
+        '404':
+          description: Dealer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    dealer:
+      type: object
+      properties:
+        dealerId:
+          type: integer
+          description: Unique id of a dealer
+        dealerName:
+          type: string
+          description: Name of the dealer
+        dealerAddress:
+          type: string
+          description: Address of the dealer
+        dealerCity:
+          type: string
+          description: City of the dealer
+        dealerState:
+          type: string
+          description: State of the dealer
+        dealerZipCode:
+          type: integer
+          description: Zip Code of the dealer
+      required:
+        - dealerId
+        - dealerName
+        - dealerAddress
+        - dealerCity
+        - dealerState
+        - dealerZipCode
+    success:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Meaningful message about successful completion of an operation
+    signinRequest:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: User name of the user
+        password:
+          type: string
+          description: Password of the user
+      required:
+        - userName
+        - password
+    token:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: User who signed in
+        code:
+          type: string
+          description: JWT Code
+      required:
+        - userName
+        - code
+    user:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First Name of the User
+        lastName:
+          type: string
+          description: Last Name of the User
+        emailAddress:
+          type: string
+          description: Email Address of the User
+        userName:
+          type: string
+          description: User Name of the User
+        password:
+          type: string
+          description: Password of the User
+      required:
+        - firstName
+        - lastName
+        - emailAddress
+        - userName
+        - password
+    error:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique id of an error
+        message:
+          type: string
+          description: Meaningful message about the error
+      required:
+        - id
+        - message

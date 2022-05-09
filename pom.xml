@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.springbootgenerator.www</groupId>
+	<artifactId>SpringBootGenerator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>SpringBootGenerator</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<springfox-version>3.0.0</springfox-version>
+		<swagger-annotations-version>1.5.8</swagger-annotations-version>
+		<spring-boot-starter-web.version>2.2.1.RELEASE</spring-boot-starter-web.version>
+		<springfox-version>2.8.0</springfox-version>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.13.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.13.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.6.7</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
+
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.3.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/dealers.yaml</inputSpec>
+							<generatorName>spring</generatorName>
+							<library>spring-boot</library>
+							<configHelp>false</configHelp>
+							<configOptions>
+								<interfaceOnly>false</interfaceOnly>
+								<dateLibrary>java8</dateLibrary>
+								<serializableModel>true</serializableModel>
+								<oas3>true</oas3>
+								<useSpringController>true</useSpringController>
+								<useSpringfox>false</useSpringfox>
+								<performBeanValidation>false</performBeanValidation>
+								<delegatePattern>false</delegatePattern>
+							</configOptions>
+							<importMappings>
+								<importMapping>RequestBody=io.swagger.v3.oas.annotations.parameters.RequestBody</importMapping>
+							</importMappings>
+							<groupId>com.dealerengine.www</groupId>
+							<artifactId>DealerEngine</artifactId>
+							<artifactVersion>1.0.0</artifactVersion>
+							<packageName>com.dealerengine.www</packageName>
+							<invokerPackage>com.dealerengine.www.invoker</invokerPackage>
+							<apiPackage>com.dealerengine.www.api</apiPackage>
+							<modelPackage>com.dealerengine.www.model</modelPackage>
+							<enablePostProcessFile>true</enablePostProcessFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

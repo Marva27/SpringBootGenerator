@@ -1,0 +1,288 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dealer Management System",
+    "version": "1.0.0",
+    "description": "REST APIs to manage dealers",
+    "contact": {
+      "name": "Srinivasan Ramu",
+      "email": "srinimarva@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "REST APIs to manage Admin Users"
+    }
+  ],
+  "paths": {
+    "/user/createAdminUser": {
+      "post": {
+        "summary": "Create Admin User",
+        "description": "To create an admin user",
+        "operationId": "createAdminUser",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "description": "First name of the user"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "description": "Last name of the user"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "description": "Email address of the user"
+                  },
+                  "userName": {
+                    "type": "string",
+                    "description": "User name of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                },
+                "required": [
+                  "firstName",
+                  "lastName",
+                  "emailAddress",
+                  "userName",
+                  "password"
+                ]
+              },
+              "examples": {
+                "ValidRequest": {
+                  "value": {
+                    "firstName": "Srinivasan",
+                    "lastName": "Ramu",
+                    "emailAddress": "srinimarva@gmail.com",
+                    "userName": "Marva27",
+                    "password": "Boeing@27"
+                  }
+                },
+                "InvalidRequest": {
+                  "value": {
+                    "firstName": "Srinivasan",
+                    "lastName": "Ramu",
+                    "emailAddress": "srinimarva@gmail.com",
+                    "password": "Boeing@27"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Admin user created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "description": "First name of the user"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "description": "Last name of the user"
+                    },
+                    "emailAddress": {
+                      "type": "string",
+                      "description": "Email address of the user"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "description": "User name of the user"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "Password of the user"
+                    }
+                  },
+                  "required": [
+                    "firstName",
+                    "lastName",
+                    "emailAddress",
+                    "userName",
+                    "password"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error in creating admin user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique id of an error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Meaningful message about an error"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "mandatoryfieldmissing": {
+                    "value": {
+                      "id": "bad_request",
+                      "message": "user name is required"
+                    }
+                  },
+                  "usernamealreadyexists": {
+                    "value": {
+                      "id": "bad_request",
+                      "message": "user name already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found for creating admin user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique id of an error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Meaningful message about an error"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "endpointnotfound": {
+                    "value": {
+                      "id": "not_found",
+                      "message": "endpoint for creating new admin user unavailable"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique id of an error"
+          },
+          "message": {
+            "type": "string",
+            "description": "Meaningful message about an error"
+          }
+        },
+        "required": [
+          "id",
+          "message"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the user"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the user"
+          },
+          "emailAddress": {
+            "type": "string",
+            "description": "Email address of the user"
+          },
+          "userName": {
+            "type": "string",
+            "description": "User name of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "emailAddress",
+          "userName",
+          "password"
+        ]
+      }
+    },
+    "examples": {
+      "mandatoryfieldmissing": {
+        "value": {
+          "id": "bad_request",
+          "message": "user name is required"
+        }
+      },
+      "usernamealreadyexists": {
+        "value": {
+          "id": "bad_request",
+          "message": "user name already exists"
+        }
+      },
+      "endpointnotfound": {
+        "value": {
+          "id": "not_found",
+          "message": "endpoint for creating new admin user unavailable"
+        }
+      },
+      "validCreateAdminUserRequest": {
+        "value": {
+          "firstName": "Srinivasan",
+          "lastName": "Ramu",
+          "emailAddress": "srinimarva@gmail.com",
+          "userName": "Marva27",
+          "password": "Boeing@27"
+        }
+      },
+      "invalidCreateAdminUserRequest": {
+        "value": {
+          "firstName": "Srinivasan",
+          "lastName": "Ramu",
+          "emailAddress": "srinimarva@gmail.com",
+          "password": "Boeing@27"
+        }
+      }
+    }
+  }
+}
